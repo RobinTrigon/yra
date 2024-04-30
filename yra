@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+from concurrent.futures import ThreadPoolExecutor
+
+# Function to display help menu
+def display_help():
+    if len(sys.argv) > 2 or ("-h" not in sys.argv and "--help" not in sys.argv): 
+        print("\033[91m\033[5mIncorrect usage. Please provide only the help option (-h or --help).\033[0m")
+        return
+    print("""
+\033[95m                              
+                     ____     ____ 
+         /'    /   )'    )--/'    )
+       /'    /'  /'       /'    /' 
+      (___,/(__/'        (___,/(__ 
+         /'                        
+ /     /'                          
+(___,/'                            
+                                \033[93m\033[5m@RobinTrigon\033[0m
+Example:
+  yra google.com yahoo.com
+  cat urls.txt | yra
+  echo "example.com" | yra
+    """.format(sys.argv[0], sys.argv[0], sys.argv[0]))
+
+# Function to process a single URL
+def process_url(url):
+    try:
+        
+        if not url.startswith("http://") and not url.startswith("https://"):
+            url = "https://" + url  
+
+
+        output = subprocess.run(["wad", "-u", url], capture_output=True, text=True)
+        lines = output.stdout.split("\n")
+        app_info = []
+        for line in lines:
+            if "app" in line:
+                parts = line.split('"')
+                app_info.append(parts[3])
+        print("\033[96m" + url + "\033[0m", " [", end="")
+        print(", ".join(app_info), end="")
+        print("]")
+    except KeyboardInterrupt:
+        print("\n\033[91m\033[5mTool stopped by user.\033[0m")
+        sys.exit(0)
+
+
+if not sys.stdin.isatty():
+    # Input provided via pipe
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        results = executor.map(process_url, (url.strip() for url in sys.stdin))
+elif len(sys.argv) < 2 or any(arg in ["-h", "--help"] for arg in sys.argv[1:]):
+    # Display help menu if not enough arguments or help option is provided
+    display_help()
+else:
+    # Process command-line arguments as URLs
+    with ThreadPoolExecutor(max_workers=20) as executor:
+        results = executor.map(process_url, sys.argv[1:])
+
+
