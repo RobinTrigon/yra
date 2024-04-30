@@ -12,7 +12,7 @@ YRA is a command-line tool designed to detect and analyze web technologies used 
 - **Efficient Analysis**: Utilizing advanced algorithms and parallel processing techniques, YRA swiftly analyzes multiple URLs, delivering comprehensive results in minimal time.
 
 - **Interactive Reports**: YRA generates interactive reports detailing the detected technologies, enabling users to explore and visualize the tech stack of any website effortlessly.
-- 
+  
 - **Speed**: Faster then my future !
 
 ## Installation
