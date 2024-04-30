@@ -33,7 +33,7 @@ chmod +x install.sh
 You can analyze a single URL by passing it as a command-line argument:
 
 ```bash
-yra analyze example.com
+yra example.com
 ```
 
 #### Example Result:
@@ -46,7 +46,7 @@ https://example.com [HTML5, CSS3, JavaScript]
 YRA supports analyzing multiple URLs simultaneously. You can specify them as command-line arguments:
 
 ```bash
-yra analyze google.com yahoo.com microsoft.com
+yra google.com yahoo.com microsoft.com
 ```
 
 #### Example Result:
@@ -61,7 +61,7 @@ https://microsoft.com [HTML5, CSS3, JavaScript, ASP.NET]
 If you have a file containing URLs, you can analyze them by piping the file's contents into YRA:
 
 ```bash
-cat urls.txt | yra analyze
+cat urls.txt | yra
 ```
 
 #### Example Result:
