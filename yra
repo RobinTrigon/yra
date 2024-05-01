@@ -57,7 +57,7 @@ elif len(sys.argv) < 2 or any(arg in ["-h", "--help"] for arg in sys.argv[1:]):
     display_help()
 else:
     # Process command-line arguments as URLs
-    with ThreadPoolExecutor(max_workers=20) as executor:
+    with ThreadPoolExecutor(max_workers=10) as executor:
         results = executor.map(process_url, sys.argv[1:])
 
 
